@@ -5,7 +5,9 @@
   "author": "topisark <topi.sarkkinen@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint frontend/src"
+    "lint": "eslint frontend/src",
+    "build": "cd frontend && yarn build",
+    "start": "cd frontend && yarn start"
   },
   "devDependencies": {
     "eslint": "^4.16.0",
