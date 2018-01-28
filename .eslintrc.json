@@ -1,6 +1,8 @@
 {
   "extends": "airbnb",
   "rules": {
+    "max-len": ["error", { "code": 120 }],
+    "comma-dangle": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "eol-last": "off",
     "react/prop-types": "off",

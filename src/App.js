@@ -1,7 +1,29 @@
 import { Route, Switch } from 'react-router-dom';
 import React from 'react';
-import LandingPage from './pages/landing';
 import Layout from './components/layout/index';
+import LandingPage from './pages/landing';
+import BrweriesPage from './pages/breweries';
+import BeersPage from './pages/beers';
+import RatingsPage from './pages/ratings';
+
+const routes = [
+  {
+    label: 'Brweries',
+    path: '/brweries',
+    component: BrweriesPage
+  },
+  {
+    label: 'Beers',
+    path: '/beers',
+    component: BeersPage
+  },
+  {
+    label: 'Ratings',
+    path: '/ratings',
+    component: RatingsPage
+  }
+];
+
 
 // TODO: Routes/paths into an array and map navbar and routes from it?
 export default class App extends React.Component {
@@ -9,8 +31,9 @@ export default class App extends React.Component {
     return (
       <div className="application">
         <Switch>
-          <Layout>
-            <Route path="/" component={LandingPage} />
+          <Layout routes={routes}>
+            <Route exact path="/" component={LandingPage} />
+            { routes.map(route => <Route key={route.label} path={route.path} component={route.component} />)}
           </Layout>
         </Switch>
       </div>

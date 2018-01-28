@@ -3,9 +3,15 @@ import { AppBar, Toolbar, Button } from 'material-ui';
 import { Link } from 'react-router-dom';
 import './navbar.scss';
 
-// TODO: Real links
+const NavigationLinks = props => props.routes.map(route => (
+  <Link to={route.path} key={route.label}>
+    <Button color="inherit">{route.label}</Button>
+  </Link>
+));
+
 export default class Navbar extends React.Component {
   render() {
+    const { routes } = this.props;
     return (
       <AppBar position="static">
         <Toolbar className="navbar">
@@ -15,12 +21,7 @@ export default class Navbar extends React.Component {
             </Link>
           </div>
           <div className="navbar-links">
-            <Link to="/foo">
-              <Button color="inherit">Foo</Button>
-            </Link>
-            <Link to="/bar">
-              <Button color="inherit">Bar</Button>
-            </Link>
+            <NavigationLinks routes={routes} />
           </div>
         </Toolbar>
       </AppBar>
