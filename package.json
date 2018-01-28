@@ -1,0 +1,17 @@
+{
+  "name": "reactive-ratebeer",
+  "version": "0.0.1",
+  "repository": "git@github.com:topisark/reactive-ratebeer.git",
+  "author": "topisark <topi.sarkkinen@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint frontend/src"
+  },
+  "devDependencies": {
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.0"
+  }
+}

@@ -1,5 +1,3 @@
-'use strict';
-
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
@@ -7,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
@@ -26,7 +23,7 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ?
-  {publicPath: Array(cssFilename.split('/').length).join('../')}
+  { publicPath: Array(cssFilename.split('/').length).join('../') }
   : {};
 
 module.exports = {
@@ -37,16 +34,14 @@ module.exports = {
     path: paths.appBuild,
     filename: 'static/js/[name].[chunkhash:8].js',
     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
-    publicPath: publicPath,
+    publicPath,
     devtoolModuleFilenameTemplate: info =>
       path
         .relative(paths.appSrc, info.absoluteResourcePath)
         .replace(/\\/g, '/'),
   },
   resolve: {
-    modules: ['node_modules', paths.appNodeModules].concat(
-      process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
-    ),
+    modules: ['node_modules', paths.appNodeModules].concat(process.env.NODE_PATH.split(path.delimiter).filter(Boolean)),
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
 
@@ -59,22 +54,6 @@ module.exports = {
   module: {
     strictExportPresence: true,
     rules: [
-
-      {
-        test: /\.(js|jsx|mjs)$/,
-        enforce: 'pre',
-        use: [
-          {
-            options: {
-              formatter: eslintFormatter,
-              eslintPath: require.resolve('eslint'),
-
-            },
-            loader: require.resolve('eslint-loader'),
-          },
-        ],
-        include: paths.appSrc,
-      },
       {
         oneOf: [
           {
@@ -96,94 +75,90 @@ module.exports = {
           },
           {
             test: /\.scss/,
-            loader: ExtractTextPlugin.extract(
-              Object.assign(
-                {
-                  fallback: {
-                    loader: require.resolve('style-loader'),
+            loader: ExtractTextPlugin.extract(Object.assign(
+              {
+                fallback: {
+                  loader: require.resolve('style-loader'),
+                  options: {
+                    hmr: false,
+                  },
+                },
+                use: [
+                  {
+                    loader: require.resolve('css-loader'),
                     options: {
-                      hmr: false,
+                      importLoaders: 1,
+                      minimize: true,
+                      sourceMap: shouldUseSourceMap,
                     },
                   },
-                  use: [
-                    {
-                      loader: require.resolve('css-loader'),
-                      options: {
-                        importLoaders: 1,
-                        minimize: true,
-                        sourceMap: shouldUseSourceMap,
-                      },
+                  {
+                    loader: require.resolve('sass-loader'),
+                  },
+                  {
+                    loader: require.resolve('postcss-loader'),
+                    options: {
+                      ident: 'postcss',
+                      plugins: () => [
+                        require('postcss-flexbugs-fixes'),
+                        autoprefixer({
+                          browsers: [
+                            '>1%',
+                            'last 4 versions',
+                            'Firefox ESR',
+                            'not ie < 9',
+                          ],
+                          flexbox: 'no-2009',
+                        }),
+                      ],
                     },
-                    {
-                      loader: require.resolve('sass-loader'),
-                    },
-                    {
-                      loader: require.resolve('postcss-loader'),
-                      options: {
-                        ident: 'postcss',
-                        plugins: () => [
-                          require('postcss-flexbugs-fixes'),
-                          autoprefixer({
-                            browsers: [
-                              '>1%',
-                              'last 4 versions',
-                              'Firefox ESR',
-                              'not ie < 9',
-                            ],
-                            flexbox: 'no-2009',
-                          }),
-                        ],
-                      },
-                    },
-                  ],
-                },
-                extractTextPluginOptions
-              )
-            ),
+                  },
+                ],
+              },
+              extractTextPluginOptions,
+            )),
           },
           {
             test: /\.css$/,
-            loader: ExtractTextPlugin.extract(
-              Object.assign(
-                {
-                  fallback: {
-                    loader: require.resolve('style-loader'),
+            loader: ExtractTextPlugin.extract(Object.assign(
+              {
+                fallback: {
+                  loader: require.resolve('style-loader'),
+                  options: {
+                    hmr: false,
+                  },
+                },
+                use: [
+                  {
+                    loader: require.resolve('css-loader'),
                     options: {
-                      hmr: false,
+                      importLoaders: 1,
+                      minimize: true,
+                      sourceMap: shouldUseSourceMap,
                     },
                   },
-                  use: [
-                    {
-                      loader: require.resolve('css-loader'),
-                      options: {
-                        importLoaders: 1,
-                        minimize: true,
-                        sourceMap: shouldUseSourceMap,
-                      },
+                  {
+                    loader: require.resolve('postcss-loader'),
+                    options: {
+                      ident: 'postcss',
+                      plugins: () => [
+                        require('postcss-flexbugs-fixes'),
+                        autoprefixer({
+                          browsers: [
+                            '>1%',
+                            'last 4 versions',
+                            'Firefox ESR',
+                            'not ie < 9',
+                          ],
+                          flexbox: 'no-2009',
+                        }),
+                      ],
                     },
-                    {
-                      loader: require.resolve('postcss-loader'),
-                      options: {
-                        ident: 'postcss',
-                        plugins: () => [
-                          require('postcss-flexbugs-fixes'),
-                          autoprefixer({
-                            browsers: [
-                              '>1%',
-                              'last 4 versions',
-                              'Firefox ESR',
-                              'not ie < 9',
-                            ],
-                            flexbox: 'no-2009',
-                          }),
-                        ],
-                      },
-                    },
-                  ],
-                },
-                extractTextPluginOptions
-              )
-            ),
+                  },
+                ],
+              },
+              extractTextPluginOptions,
+            )),
           },
           {
             loader: require.resolve('file-loader'),
