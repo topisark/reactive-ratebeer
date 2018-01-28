@@ -4,4 +4,6 @@
 
 A rehash of an old project with React and AWS Lambdas. WIP.
 
-CircleCI: https://circleci.com/gh/topisark/reactive-ratebeer
+[CircleCI](https://circleci.com/gh/topisark/reactive-ratebeer)
+
+[Live version on Heroku](https://reactive-ratebeer.herokuapp.com/)
