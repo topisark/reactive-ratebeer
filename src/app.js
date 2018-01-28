@@ -29,12 +29,12 @@ export default class App extends React.Component {
     return (
       <div className="application">
         <BrowserRouter>
-          <Switch>
-            <Layout routes={routes}>
+          <Layout routes={routes}>
+            <Switch>
               <Route exact path="/" component={LandingPage} />
               { routes.map(route => <Route key={route.label} path={route.path} component={route.component} />)}
-            </Layout>
-          </Switch>
+            </Switch>
+          </Layout>
         </BrowserRouter>
       </div>
     );
