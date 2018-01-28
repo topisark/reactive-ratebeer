@@ -17,16 +17,16 @@ const NavigationLinks = props => props.routes.map(route => (
 
 export default class Navbar extends React.Component {
   render() {
-    const { mainRoute, routes } = this.props;
+    const { mainRoute, navigationRoutes } = this.props;
     return (
       <AppBar position="static">
         <Toolbar className="navbar">
           <div className="navbar-title" >
             <MainLink {...mainRoute} />
           </div>
-          { routes &&
+          { navigationRoutes &&
             <div className="navbar-links">
-              <NavigationLinks routes={routes} />
+              <NavigationLinks routes={navigationRoutes} />
             </div>
           }
         </Toolbar>
