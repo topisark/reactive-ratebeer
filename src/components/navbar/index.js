@@ -15,8 +15,12 @@ export default class Navbar extends React.Component {
             </Link>
           </div>
           <div className="navbar-links">
-            <Button color="inherit">Foo</Button>
-            <Button color="inherit">Bar</Button>
+            <Link to="/foo">
+              <Button color="inherit">Foo</Button>
+            </Link>
+            <Link to="/bar">
+              <Button color="inherit">Bar</Button>
+            </Link>
           </div>
         </Toolbar>
       </AppBar>

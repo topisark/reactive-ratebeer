@@ -8,12 +8,12 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="application">
-        <Navbar />
-        <div className="application-container">
-          <Switch>
+        <Switch>
+          <Navbar />
+          <div className="application-container">
             <Route path="/" component={LandingPage} />
-          </Switch>
-        </div>
+          </div>
+        </Switch>
       </div>
     );
   }
