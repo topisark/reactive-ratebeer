@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import React from 'react';
 import LandingPage from './pages/landing';
-import Navbar from './components/navbar';
+import Layout from './components/layout/index';
 
 // TODO: Routes/paths into an array and map navbar and routes from it?
 export default class App extends React.Component {
@@ -9,10 +9,9 @@ export default class App extends React.Component {
     return (
       <div className="application">
         <Switch>
-          <Navbar />
-          <div className="application-container">
+          <Layout>
             <Route path="/" component={LandingPage} />
-          </div>
+          </Layout>
         </Switch>
       </div>
     );
