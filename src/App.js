@@ -24,8 +24,6 @@ const routes = [
   }
 ];
 
-
-// TODO: Routes/paths into an array and map navbar and routes from it?
 export default class App extends React.Component {
   render() {
     return (
