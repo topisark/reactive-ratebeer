@@ -2,15 +2,15 @@ import { Route, Switch } from 'react-router-dom';
 import React from 'react';
 import Layout from './components/layout/index';
 import LandingPage from './pages/landing';
-import BrweriesPage from './pages/breweries';
+import BreweriesPage from './pages/breweries';
 import BeersPage from './pages/beers';
 import RatingsPage from './pages/ratings';
 
 const routes = [
   {
-    label: 'Brweries',
-    path: '/brweries',
-    component: BrweriesPage
+    label: 'Breweries',
+    path: '/breweries',
+    component: BreweriesPage
   },
   {
     label: 'Beers',
