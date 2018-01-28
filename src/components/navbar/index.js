@@ -20,9 +20,11 @@ export default class Navbar extends React.Component {
               <Button color="inherit">Ratebeer</Button>
             </Link>
           </div>
-          <div className="navbar-links">
-            <NavigationLinks routes={routes} />
-          </div>
+          { routes &&
+            <div className="navbar-links">
+              <NavigationLinks routes={routes} />
+            </div>
+          }
         </Toolbar>
       </AppBar>
     );
