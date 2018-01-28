@@ -1,0 +1,25 @@
+@import './variables';
+
+body {
+  font-family: $font-family;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1, h2, h3 {
+  color: $main-color;
+}
+
+.card {
+  padding: 20px;
+  margin: 20px;
+  min-width: 250px;
+  &-description {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+}

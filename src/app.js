@@ -5,6 +5,7 @@ import LandingPage from './pages/landing';
 import BreweriesPage from './pages/breweries';
 import BeersPage from './pages/beers';
 import RatingsPage from './pages/ratings';
+import './common.scss';
 
 const mainRoute = {
   label: 'Ratebeer',
