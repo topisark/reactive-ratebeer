@@ -2,6 +2,7 @@
   "extends": "airbnb",
   "plugins": ["jest"],
   "rules": {
+    "import/prefer-default-export": "off",
     "function-paren-newline": "off",
     "arrow-parens": "off",
     "padded-blocks": "off",
