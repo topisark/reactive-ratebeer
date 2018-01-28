@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Card, CardActions, CardContent } from 'material-ui';
+import { Link } from 'react-router-dom';
 import './breweries.scss';
 
 const mockBrweries = [
@@ -35,7 +36,9 @@ const BreweryCard = (props) => (
       <p className="card-description">{props.description}</p>
     </CardContent>
     <CardActions>
-      <Button>Learn more</Button>
+      <Link to={`/breweries/${props.id}`}>
+        <Button>Learn more</Button>
+      </Link>
     </CardActions>
   </Card>
 );
