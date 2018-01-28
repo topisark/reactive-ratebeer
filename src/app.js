@@ -6,6 +6,12 @@ import BreweriesPage from './pages/breweries';
 import BeersPage from './pages/beers';
 import RatingsPage from './pages/ratings';
 
+const mainRoute = {
+  label: 'Ratebeer',
+  path: '/',
+  component: LandingPage
+};
+
 const routes = [
   {
     label: 'Breweries',
@@ -29,10 +35,11 @@ export default class App extends React.Component {
     return (
       <div className="application">
         <BrowserRouter>
-          <Layout routes={routes}>
+          <Layout mainRoute={mainRoute} routes={routes}>
             <Switch>
-              <Route exact path="/" component={LandingPage} />
-              { routes.map(route => <Route key={route.label} path={route.path} component={route.component} />)}
+              { [mainRoute, ...routes].map(route =>
+                <Route exact key={route.label} path={route.path} component={route.component} />
+              )}
             </Switch>
           </Layout>
         </BrowserRouter>

@@ -3,12 +3,13 @@ import ReactTestRenderer from 'react-test-renderer';
 import { Link, MemoryRouter } from 'react-router-dom';
 import Navbar from '../src/components/navbar';
 
+const mainRoute = {
+  label: 'Landing page',
+  path: '/',
+  component: <div />
+};
+
 const routes = [
-  {
-    label: 'Landing page',
-    path: '/',
-    component: <div />
-  },
   {
     label: 'Bar',
     path: '/bar',
@@ -26,7 +27,7 @@ describe('Navbar', () => {
   test('can be created without nav links', () => {
     const renderer = ReactTestRenderer.create(
       <MemoryRouter>
-        <Navbar />
+        <Navbar mainRoute={mainRoute} />
       </MemoryRouter>
     );
     expect(renderer.root).toBeDefined();
@@ -35,11 +36,11 @@ describe('Navbar', () => {
   test('renders correct links', () => {
     const renderer = ReactTestRenderer.create(
       <MemoryRouter>
-        <Navbar routes={routes} />
+        <Navbar mainRoute={mainRoute} routes={routes} />
       </MemoryRouter>
     );
     const links = renderer.root.findAllByType(Link);
-    const expectedLinks = routes.map(route => route.path);
+    const expectedLinks = [...routes.map(route => route.path), mainRoute.path];
     links.forEach(link => {
       expect(expectedLinks).toContain(link.props.to);
     });
