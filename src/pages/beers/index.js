@@ -65,7 +65,12 @@ export default class BeersPage extends React.Component {
     return (
       <div className="beers">
         <div className="beers-filter">
-          <SearchField label="Filter beers" collection={this.state.beers} setResult={this.setFilterResult} />
+          <SearchField
+            label="Filter by name"
+            fieldToSearch="name"
+            collection={this.state.beers}
+            setResult={this.setFilterResult}
+          />
         </div>
         <div className="beers-content">
           {this.state.filteredBeers.map(beer => <BeerCard key={beer.id} {...beer} />)}
