@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, CardActions, CardContent, TextField } from 'material-ui';
+import { Button, Card, CardActions, CardContent } from 'material-ui';
 import { Link } from 'react-router-dom';
 import './beers.scss';
 import SearchField from '../../components/search-field';
