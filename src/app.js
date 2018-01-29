@@ -44,8 +44,14 @@ export default class App extends React.Component {
         <BrowserRouter>
           <Layout mainRoute={mainRoute} navigationRoutes={navigationRoutes}>
             <Switch>
-              {routes.map(route =>
-                <Route exact key={route.label} path={route.path} component={route.component} />
+              {routes.map(route => (
+                <Route
+                  exact
+                  key={route.label}
+                  path={route.path}
+                  component={route.component}
+                />
+                )
               )}
             </Switch>
           </Layout>
