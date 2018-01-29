@@ -53,12 +53,12 @@ export default class BeersPage extends React.Component {
   constructor(props) {
     super(props);
     // TODO: Get beers from server
-    this.state = { beers: mockBeers };
+    this.state = { beers: mockBeers, filteredBeers: mockBeers };
     this.setFilterResult = this.setFilterResult.bind(this);
   }
 
-  setFilterResult(beers) {
-    this.setState({ beers });
+  setFilterResult(filteredBeers) {
+    this.setState({ filteredBeers });
   }
 
   render() {
@@ -68,7 +68,7 @@ export default class BeersPage extends React.Component {
           <SearchField label="Filter beers" collection={this.state.beers} setResult={this.setFilterResult} />
         </div>
         <div className="beers-content">
-          {this.state.beers.map(beer => <BeerCard key={beer.id} {...beer} />)}
+          {this.state.filteredBeers.map(beer => <BeerCard key={beer.id} {...beer} />)}
         </div>
       </div>
     );
