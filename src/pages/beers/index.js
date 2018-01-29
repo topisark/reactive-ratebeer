@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Card, CardActions, CardContent } from 'material-ui';
 import { Link } from 'react-router-dom';
+import './beers.scss';
 
 const mockBeers = [
   {
