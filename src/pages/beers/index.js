@@ -30,7 +30,7 @@ const mockBeers = [
 ];
 
 const BeerCard = (props) => (
-  <Card key={props.id} className="card">
+  <Card className="card">
     <CardContent>
       <h3>{props.name}</h3>
       <p className="card-description">{props.description}</p>
@@ -47,7 +47,7 @@ export default class BeersPage extends React.Component {
   render() {
     return (
       <div className="beers">
-        {mockBeers.map(beer => <BeerCard {...beer} />)}
+        {mockBeers.map(beer => <BeerCard key={beer.id} {...beer} />)}
       </div>
     );
   }
