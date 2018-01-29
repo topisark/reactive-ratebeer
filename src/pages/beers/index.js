@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Card, CardActions, CardContent } from 'material-ui';
+import { Button, Card, CardActions, CardContent, TextField } from 'material-ui';
 import { Link } from 'react-router-dom';
 import './beers.scss';
+import SearchField from '../../components/search-field';
 
 const mockBeers = [
   {
@@ -49,10 +50,26 @@ const BeerCard = (props) => (
 );
 
 export default class BeersPage extends React.Component {
+  constructor(props) {
+    super(props);
+    // TODO: Get beers from server
+    this.state = { beers: mockBeers };
+    this.setFilterResult = this.setFilterResult.bind(this);
+  }
+
+  setFilterResult(beers) {
+    this.setState({ beers });
+  }
+
   render() {
     return (
       <div className="beers">
-        {mockBeers.map(beer => <BeerCard key={beer.id} {...beer} />)}
+        <div className="beers-filter">
+          <SearchField label="Filter beers" collection={this.state.beers} setResult={this.setFilterResult} />
+        </div>
+        <div className="beers-content">
+          {this.state.beers.map(beer => <BeerCard key={beer.id} {...beer} />)}
+        </div>
       </div>
     );
   }
