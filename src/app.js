@@ -37,8 +37,8 @@ const routes = [
 
 export default class App extends React.Component {
   render() {
-    const mainRoute = routes.find(route => route.type === 'main');
-    const navigationRoutes = routes.filter(route => route.type === 'nav');
+    const mainRoute = routes.find(route => route.type === RouteType.MAIN_ROUTE);
+    const navigationRoutes = routes.filter(route => route.type === RouteType.NAVIGATION_ROUTE);
     return (
       <div className="application">
         <BrowserRouter>
