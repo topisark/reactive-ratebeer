@@ -7,24 +7,28 @@ const mockBeers = [
   {
     id: 1,
     name: 'Malmgard IPA',
+    brewery: 'Malmgard',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi semper tristique risus,.'
   },
   {
     id: 2,
     name: 'Koff 3',
+    brewery: 'Sinberychoff',
     description: 'Lorem ipsum dolor sit amet, ' +
     'consectetur adipiscing elit. Morbi semper tristique risus, id laoreet sapien varius non. ' +
     'Pellentesque ac ullamcorper libero, quis viverra ex.'
   },
   {
     id: 3,
-    name: 'Weihenstephaner',
+    name: 'Weihenstephaner Pils',
+    brewery: 'Weihenstephaner',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
     'Morbi semper tristique risus, id laoreet sapien varius non.'
   },
   {
     id: 4,
     name: 'Punk IPA',
+    brewery: 'Brewdog',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
   },
 ];
@@ -32,7 +36,8 @@ const mockBeers = [
 const BeerCard = (props) => (
   <Card className="card">
     <CardContent>
-      <h3>{props.name}</h3>
+      <h2>{props.name}</h2>
+      <h3>{props.brewery}</h3>
       <p className="card-description">{props.description}</p>
     </CardContent>
     <CardActions>
