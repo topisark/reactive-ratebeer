@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { MemoryRouter } from 'react-router-dom';
-import App from '../src/app';
+import App from '../../src/app';
 
 const app = (
   <MemoryRouter>

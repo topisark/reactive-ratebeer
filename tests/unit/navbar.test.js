@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTestRenderer from 'react-test-renderer';
 import { Link, MemoryRouter } from 'react-router-dom';
-import Navbar from '../src/components/navbar';
+import Navbar from '../../src/components/navbar/index';
 
 const mainRoute = {
   label: 'Landing page',

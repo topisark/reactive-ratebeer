@@ -1,7 +1,14 @@
 {
-  "extends": "airbnb",
-  "plugins": ["jest"],
+  "extends": [
+    "airbnb",
+    "plugin:testcafe/recommended"
+  ],
+  "plugins": [
+    "jest",
+    "testcafe"
+  ],
   "rules": {
+    "template-tag-spacing": "off",
     "import/prefer-default-export": "off",
     "function-paren-newline": "off",
     "arrow-parens": "off",
