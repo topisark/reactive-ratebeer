@@ -51,7 +51,7 @@
     "start": "eslint src && node scripts/start.js",
     "build": "eslint src && node scripts/build.js",
     "test": "jest --verbose",
-    "test-browser": "testcafe chrome tests/browser/navigation.test.js"
+    "test-browser": "testcafe chrome tests/browser"
   },
   "babel": {
     "presets": [
