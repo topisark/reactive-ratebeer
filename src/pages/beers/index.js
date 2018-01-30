@@ -2,8 +2,10 @@ import React from 'react';
 import request from 'request-promise';
 import { Button, Card, CardActions, CardContent } from 'material-ui';
 import { Link } from 'react-router-dom';
-import './beers.scss';
+import { apiUrl } from '../../constants';
 import SearchField from '../../components/search-field';
+import LoadingIndicator from '../../components/loading-indicator';
+import './beers.scss';
 
 const BeerCard = (props) => (
   <Card className="card">
@@ -23,21 +25,28 @@ const BeerCard = (props) => (
 export default class BeersPage extends React.Component {
   constructor(props) {
     super(props);
-    // TODO: Get beers from server
-    this.state = { beers: [], filteredBeers: [] };
+    this.state = {
+      beers: [],
+      filteredBeers: [],
+      loading: true
+    };
     this.setFilterResult = this.setFilterResult.bind(this);
   }
 
   componentDidMount() {
-    // TODO: Url to env or constants?
     // TODO: Unified error handling
     const requestOptions = {
-      url: 'https://q18qcvcpq8.execute-api.eu-west-1.amazonaws.com/dev/beers',
+      url: `${apiUrl}/beers`,
       json: true
     };
     request.get(requestOptions)
       .then(response => {
-        this.setState({ beers: response.data, filteredBeers: response.data });
+        const beers = response.data;
+        this.setState({
+          beers,
+          filteredBeers: beers,
+          loading: false
+        });
       });
   }
 
@@ -56,8 +65,9 @@ export default class BeersPage extends React.Component {
             setResult={this.setFilterResult}
           />
         </div>
+        { this.state.loading && <LoadingIndicator /> }
         <div className="beers-content">
-          {this.state.filteredBeers.map(beer => <BeerCard key={beer.id} {...beer} />)}
+          { this.state.filteredBeers.map(beer => <BeerCard key={beer.id} {...beer} />) }
         </div>
       </div>
     );

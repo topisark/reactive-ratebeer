@@ -8,6 +8,8 @@
     "testcafe"
   ],
   "rules": {
+    "curly": ["error", "all"],
+    "react/jsx-indent": [2, 2],
     "template-tag-spacing": "off",
     "import/prefer-default-export": "off",
     "function-paren-newline": "off",
