@@ -1,38 +1,9 @@
 import React from 'react';
+import request from 'request-promise';
 import { Button, Card, CardActions, CardContent } from 'material-ui';
 import { Link } from 'react-router-dom';
 import './beers.scss';
 import SearchField from '../../components/search-field';
-
-const mockBeers = [
-  {
-    id: 1,
-    name: 'Malmgard IPA',
-    brewery: 'Malmgard',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi semper tristique risus,.'
-  },
-  {
-    id: 2,
-    name: 'Koff 3',
-    brewery: 'Sinberychoff',
-    description: 'Lorem ipsum dolor sit amet, ' +
-    'consectetur adipiscing elit. Morbi semper tristique risus, id laoreet sapien varius non. ' +
-    'Pellentesque ac ullamcorper libero, quis viverra ex.'
-  },
-  {
-    id: 3,
-    name: 'Weihenstephaner Pils',
-    brewery: 'Weihenstephaner',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
-    'Morbi semper tristique risus, id laoreet sapien varius non.'
-  },
-  {
-    id: 4,
-    name: 'Punk IPA',
-    brewery: 'Brewdog',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-  },
-];
 
 const BeerCard = (props) => (
   <Card className="card">
@@ -53,8 +24,21 @@ export default class BeersPage extends React.Component {
   constructor(props) {
     super(props);
     // TODO: Get beers from server
-    this.state = { beers: mockBeers, filteredBeers: mockBeers };
+    this.state = { beers: [], filteredBeers: [] };
     this.setFilterResult = this.setFilterResult.bind(this);
+  }
+
+  componentDidMount() {
+    // TODO: Url to env or constants?
+    // TODO: Unified error handling
+    const requestOptions = {
+      url: 'https://q18qcvcpq8.execute-api.eu-west-1.amazonaws.com/dev/beers',
+      json: true
+    };
+    request.get(requestOptions)
+      .then(response => {
+        this.setState({ beers: response.data, filteredBeers: response.data });
+      });
   }
 
   setFilterResult(filteredBeers) {
