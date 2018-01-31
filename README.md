@@ -12,6 +12,8 @@ Browser tests: `yarn test-browser`. Tests are run on the version deployed to Her
 
 Commits to `master` are automatically deployed to Heroku.
 
-[Continous integration on CircleCI](https://circleci.com/gh/topisark/reactive-ratebeer)
+[Continous integration on CircleCI.](https://circleci.com/gh/topisark/reactive-ratebeer)
 
-[Live version on Heroku](https://reactive-ratebeer.herokuapp.com/)
+[Live version on Heroku.](https://reactive-ratebeer.herokuapp.com/)
+
+[Backend project on GitHub (reactive-ratebeer-lambdas).](https://github.com/topisark/reactive-ratebeer-lambdas)
