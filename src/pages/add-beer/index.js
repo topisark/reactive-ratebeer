@@ -3,14 +3,24 @@ import request from 'request-promise';
 import { Button, Dialog, TextField } from 'material-ui';
 import { Link } from 'react-router-dom';
 import { apiUrl } from '../../constants';
+import { validateBeer, validateBeerField } from '../../validations';
 import './add-beer.scss';
 
 const beerProperties = ['Name', 'Brewery', 'Description'];
 
+const getBeerFromState = state => {
+  const { name, brewery, description } = state;
+  return {
+    name,
+    brewery,
+    description
+  };
+};
+
 const SubmitDialog = (props) => (
   <Dialog open>
     <div className="add-beer-dialog">
-      <h1>{ props.message }</h1>
+      <h2>{ props.message }</h2>
       <Link to="/beers">
         <Button>See the beers</Button>
       </Link>
@@ -18,11 +28,14 @@ const SubmitDialog = (props) => (
   </Dialog>
 );
 
-// TODO: Validation?
 export default class AddBeerPage extends React.Component {
   constructor() {
     super();
-    this.state = { dialogMessage: null };
+    this.state = {
+      dialogMessage: null,
+      validationMessages: {},
+      beerIsValid: false
+    };
   }
 
   handleChange = (event) => {
@@ -30,17 +43,20 @@ export default class AddBeerPage extends React.Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = () => {
-    const { name, brewery, description } = this.state;
+  handleBlur = (event) => {
+    const { name, value } = event.target;
+    const beer = getBeerFromState(this.state);
+    this.setState({
+      beerIsValid: validateBeer(beer),
+      validationMessages: { ...this.state.validationMessages, [name]: validateBeerField(name, value) }
+    });
+  };
 
+  handleSubmit = () => {
     const requestOptions = {
       url: `${apiUrl}/beers`,
       json: true,
-      body: {
-        name,
-        brewery,
-        description
-      }
+      body: getBeerFromState(this.state)
     };
 
     request.post(requestOptions)
@@ -54,7 +70,7 @@ export default class AddBeerPage extends React.Component {
   };
 
   render() {
-    const { dialogMessage } = this.state;
+    const { dialogMessage, validationMessages, beerIsValid } = this.state;
     return (
       <div className="add-beer">
         { dialogMessage && <SubmitDialog message={dialogMessage} /> }
@@ -62,12 +78,25 @@ export default class AddBeerPage extends React.Component {
         <div className="add-beer-fields">
           { beerProperties.map(property => (
             <div key={property} className="add-beer-fields-input">
-              <TextField onChange={this.handleChange} name={property.toLowerCase()} label={property} />
+              <TextField
+                helperText={validationMessages[property.toLowerCase()]}
+                onBlur={this.handleBlur}
+                onChange={this.handleChange}
+                name={property.toLowerCase()}
+                label={property}
+              />
             </div>
           ))
           }
         </div>
-        <Button raised onClick={this.handleSubmit} color="primary">Submit the beer!</Button>
+        <Button
+          raised
+          onClick={this.handleSubmit}
+          disabled={!beerIsValid}
+          color="primary"
+        >
+          Submit the beer!
+        </Button>
       </div>
     );
   }
