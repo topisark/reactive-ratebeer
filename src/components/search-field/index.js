@@ -11,11 +11,11 @@ export default class SearchField extends React.Component {
     const { collection, setResult, fieldToSearch } = this.props;
     const searchString = event.target.value;
 
-    const filteredBeers = collection.filter(item =>
+    const filteredItems = collection.filter(item =>
       item[fieldToSearch].toLowerCase().includes(searchString.toLowerCase())
     );
 
-    setResult(filteredBeers);
+    setResult(filteredItems);
   }
 
   render() {
