@@ -1,38 +1,11 @@
 import React from 'react';
+import request from 'request-promise';
 import { Button, Card, CardActions, CardContent } from 'material-ui';
 import { Link } from 'react-router-dom';
-import './beers.scss';
+import { apiUrl } from '../../constants';
 import SearchField from '../../components/search-field';
-
-const mockBeers = [
-  {
-    id: 1,
-    name: 'Malmgard IPA',
-    brewery: 'Malmgard',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi semper tristique risus,.'
-  },
-  {
-    id: 2,
-    name: 'Koff 3',
-    brewery: 'Sinberychoff',
-    description: 'Lorem ipsum dolor sit amet, ' +
-    'consectetur adipiscing elit. Morbi semper tristique risus, id laoreet sapien varius non. ' +
-    'Pellentesque ac ullamcorper libero, quis viverra ex.'
-  },
-  {
-    id: 3,
-    name: 'Weihenstephaner Pils',
-    brewery: 'Weihenstephaner',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
-    'Morbi semper tristique risus, id laoreet sapien varius non.'
-  },
-  {
-    id: 4,
-    name: 'Punk IPA',
-    brewery: 'Brewdog',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-  },
-];
+import LoadingIndicator from '../../components/loading-indicator';
+import './beers.scss';
 
 const BeerCard = (props) => (
   <Card className="card">
@@ -52,9 +25,28 @@ const BeerCard = (props) => (
 export default class BeersPage extends React.Component {
   constructor(props) {
     super(props);
-    // TODO: Get beers from server
-    this.state = { beers: mockBeers, filteredBeers: mockBeers };
+    this.state = {
+      beers: [],
+      filteredBeers: [],
+      loading: true
+    };
     this.setFilterResult = this.setFilterResult.bind(this);
+  }
+
+  componentDidMount() {
+    const requestOptions = {
+      url: `${apiUrl}/beers`,
+      json: true
+    };
+    request.get(requestOptions)
+      .then(response => {
+        const beers = response.data;
+        this.setState({
+          beers,
+          filteredBeers: beers,
+          loading: false
+        });
+      });
   }
 
   setFilterResult(filteredBeers) {
@@ -72,8 +64,9 @@ export default class BeersPage extends React.Component {
             setResult={this.setFilterResult}
           />
         </div>
+        { this.state.loading && <LoadingIndicator /> }
         <div className="beers-content">
-          {this.state.filteredBeers.map(beer => <BeerCard key={beer.id} {...beer} />)}
+          { this.state.filteredBeers.map(beer => <BeerCard key={beer.id} {...beer} />) }
         </div>
       </div>
     );
