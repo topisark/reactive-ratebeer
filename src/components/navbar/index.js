@@ -15,9 +15,43 @@ const NavigationLinks = props => props.routes.map(route => (
   </Link>
 ));
 
+// The empty spans are transformed with CSS into the mobile navigation icon
+const MobileNav = props => (
+  <div className="navbar-mobile">
+    <div id="nav-icon" onClick={props.toggleMobileNav} className={props.mobileNavOpen ? 'nav-icon-open' : undefined}>
+      <span />
+      <span />
+      <span />
+      <span />
+    </div>
+    {props.mobileNavOpen &&
+      <div className="navbar-mobile-links">
+        <NavigationLinks routes={props.routes} />
+      </div>
+    }
+  </div>
+);
+
+const DesktopNav = props => (
+  <div className="navbar-desktop">
+    <NavigationLinks routes={props.routes} />
+  </div>
+);
+
 export default class Navbar extends React.Component {
+  constructor() {
+    super();
+    this.state = { mobileNavOpen: false };
+    this.toggleMobileNav = this.toggleMobileNav.bind(this);
+  }
+
+  toggleMobileNav() {
+    this.setState({ mobileNavOpen: !this.state.mobileNavOpen });
+  }
+
   render() {
     const { mainRoute, navigationRoutes } = this.props;
+    const { mobileNavOpen } = this.state;
     return (
       <AppBar position="static">
         <Toolbar className="navbar">
@@ -25,9 +59,14 @@ export default class Navbar extends React.Component {
             <MainLink {...mainRoute} />
           </div>
           { navigationRoutes &&
-            <div className="navbar-links">
-              <NavigationLinks routes={navigationRoutes} />
-            </div>
+            <React.Fragment>
+              <DesktopNav routes={navigationRoutes} />
+              <MobileNav
+                mobileNavOpen={mobileNavOpen}
+                routes={navigationRoutes}
+                toggleMobileNav={this.toggleMobileNav}
+              />
+            </React.Fragment>
           }
         </Toolbar>
       </AppBar>
