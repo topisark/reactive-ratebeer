@@ -13,6 +13,12 @@ const publicPath = '/';
 const publicUrl = '';
 const env = getClientEnvironment(publicUrl);
 
+const postCssConfig = {
+  plugins: () => [
+    require('autoprefixer')({ browsers: ['last 3 versions', '> 1%'] }),
+  ],
+};
+
 module.exports = {
   devtool: 'cheap-module-source-map',
   entry: [
@@ -63,32 +69,18 @@ module.exports = {
           {
             test: /\.scss$/,
             use: [
-              require.resolve('style-loader'), {
-                loader: require.resolve('css-loader'),
-                options: {
-                  importLoaders: 1,
-                },
+              {
+                loader: 'style-loader', // creates style nodes from JS strings
               },
               {
-                loader: require.resolve('sass-loader'),
+                loader: 'css-loader', // translates CSS into CommonJS
               },
               {
-                loader: require.resolve('postcss-loader'),
-                options: {
-                  ident: 'postcss',
-                  plugins: () => [
-                    require('postcss-flexbugs-fixes'),
-                    autoprefixer({
-                      browsers: [
-                        '>1%',
-                        'last 4 versions',
-                        'Firefox ESR',
-                        'not ie < 9',
-                      ],
-                      flexbox: 'no-2009',
-                    }),
-                  ],
-                },
+                loader: 'postcss-loader',
+                options: postCssConfig,
+              },
+              {
+                loader: 'sass-loader', // compiles Sass to CSS
               },
             ],
           },

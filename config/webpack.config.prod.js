@@ -19,7 +19,17 @@ if (env.stringified['process.env'].NODE_ENV !== '"production"') {
   throw new Error('Production builds must have NODE_ENV=production.');
 }
 
+const postCssConfig = {
+  plugins: () => [
+    require('autoprefixer')({ browsers: ['last 3 versions', '> 1%'] }),
+  ],
+};
+
 const cssFilename = 'static/css/[name].[contenthash:8].css';
+
+const extractSass = new ExtractTextPlugin({
+  filename: cssFilename,
+});
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ?
@@ -74,49 +84,22 @@ module.exports = {
             },
           },
           {
-            test: /\.scss/,
-            loader: ExtractTextPlugin.extract(Object.assign(
-              {
-                fallback: {
-                  loader: require.resolve('style-loader'),
-                  options: {
-                    hmr: false,
-                  },
+            test: /\.scss$/,
+            use: extractSass.extract({
+              fallback: 'style-loader',
+              use: [
+                {
+                  loader: 'css-loader', // translates CSS into CommonJS
                 },
-                use: [
-                  {
-                    loader: require.resolve('css-loader'),
-                    options: {
-                      importLoaders: 1,
-                      minimize: true,
-                      sourceMap: shouldUseSourceMap,
-                    },
-                  },
-                  {
-                    loader: require.resolve('sass-loader'),
-                  },
-                  {
-                    loader: require.resolve('postcss-loader'),
-                    options: {
-                      ident: 'postcss',
-                      plugins: () => [
-                        require('postcss-flexbugs-fixes'),
-                        autoprefixer({
-                          browsers: [
-                            '>1%',
-                            'last 4 versions',
-                            'Firefox ESR',
-                            'not ie < 9',
-                          ],
-                          flexbox: 'no-2009',
-                        }),
-                      ],
-                    },
-                  },
-                ],
-              },
-              extractTextPluginOptions,
-            )),
+                {
+                  loader: 'postcss-loader',
+                  options: postCssConfig,
+                },
+                {
+                  loader: 'sass-loader', // compiles Sass to CSS
+                },
+              ],
+            }),
           },
           {
             test: /\.css$/,
