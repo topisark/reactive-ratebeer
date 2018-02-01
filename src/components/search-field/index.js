@@ -2,12 +2,7 @@ import React from 'react';
 import { TextField } from 'material-ui';
 
 export default class SearchField extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
+  handleChange = (event) => {
     const { collection, setResult, fieldToSearch } = this.props;
     const searchString = event.target.value;
 
@@ -16,7 +11,7 @@ export default class SearchField extends React.Component {
     );
 
     setResult(filteredItems);
-  }
+  };
 
   render() {
     const { label } = this.props;

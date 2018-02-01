@@ -30,7 +30,6 @@ export default class BeersPage extends React.Component {
       filteredBeers: [],
       loading: true
     };
-    this.setFilterResult = this.setFilterResult.bind(this);
   }
 
   componentDidMount() {
@@ -49,9 +48,9 @@ export default class BeersPage extends React.Component {
       });
   }
 
-  setFilterResult(filteredBeers) {
+  setFilterResult = (filteredBeers) => {
     this.setState({ filteredBeers });
-  }
+  };
 
   render() {
     return (
