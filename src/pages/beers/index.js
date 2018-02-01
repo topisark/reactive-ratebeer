@@ -34,7 +34,6 @@ export default class BeersPage extends React.Component {
   }
 
   componentDidMount() {
-    // TODO: Unified error handling
     const requestOptions = {
       url: `${apiUrl}/beers`,
       json: true
