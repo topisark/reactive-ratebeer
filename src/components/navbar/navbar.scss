@@ -93,3 +93,32 @@
   width: 0;
   left: 50%;
 }
+
+.collapse-enter {
+  max-height: 0;
+  a {
+    transition: color 200ms ease-in-out;
+    color: white;
+  }
+}
+
+.collapse-enter.collapse-enter-active {
+  max-height: 300px;
+  a {
+    color: $main-color
+  }
+  transition: max-height 300ms ease-in-out;
+}
+
+.collapse-leave {
+  max-height: 300px;
+  a {
+    transition: color 200ms ease-in-out;
+    color: white;
+  }
+}
+
+.collapse-leave.collapse-leave-active {
+  max-height: 0;
+  transition: max-height 300ms ease-in-out;
+}

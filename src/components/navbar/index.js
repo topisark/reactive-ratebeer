@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Button } from 'material-ui';
 import { Link } from 'react-router-dom';
+import { CSSTransitionGroup } from 'react-transition-group';
 import './navbar.scss';
 
 const MainLink = props => (
@@ -24,11 +25,13 @@ const MobileNav = props => (
       <span />
       <span />
     </div>
-    {props.mobileNavOpen &&
-      <div className="navbar-mobile-links">
-        <NavigationLinks routes={props.routes} />
-      </div>
-    }
+    <CSSTransitionGroup transitionName="collapse" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
+      {props.mobileNavOpen &&
+        <div className="navbar-mobile-links">
+          <NavigationLinks routes={props.routes} />
+        </div>
+      }
+    </CSSTransitionGroup>
   </div>
 );
 
