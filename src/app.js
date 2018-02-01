@@ -2,9 +2,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import Layout from './components/layout/index';
 import LandingPage from './pages/landing';
-import BreweriesPage from './pages/breweries';
 import BeersPage from './pages/beers';
 import RatingsPage from './pages/ratings';
+import AddBeerPage from './pages/add-beer';
 import { RouteType } from './constants';
 import './common.scss';
 
@@ -16,15 +16,15 @@ const routes = [
     type: RouteType.MAIN_ROUTE
   },
   {
-    label: 'Breweries',
-    path: '/breweries',
-    component: BreweriesPage,
-    type: RouteType.NAVIGATION_ROUTE
-  },
-  {
     label: 'Beers',
     path: '/beers',
     component: BeersPage,
+    type: RouteType.NAVIGATION_ROUTE
+  },
+  {
+    label: 'Add a beer!',
+    path: '/beers/new',
+    component: AddBeerPage,
     type: RouteType.NAVIGATION_ROUTE
   },
   {
