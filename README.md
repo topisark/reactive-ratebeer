@@ -4,6 +4,8 @@
 
 Frontend of a hobby project to rate beers with React 16.
 
+More or less built like a [PWA](https://en.wikipedia.org/wiki/Progressive_web_app) so can be added to the home screen on iOS and Android and should be responsive to different viewport sizes.
+
 Start locally: `yarn start`. Requires dependencies to be installed: `yarn install`.
 
 Unit tests: `yarn test`.
