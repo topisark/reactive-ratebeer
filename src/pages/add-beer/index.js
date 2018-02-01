@@ -5,16 +5,12 @@ import { Link } from 'react-router-dom';
 import { apiUrl } from '../../constants';
 import './add-beer.scss';
 
-function mockPost() {
-  return Promise.resolve();
-}
+const beerProperties = ['Name', 'Brewery', 'Description'];
 
-const beerProperties = ['Name', 'Berwery', 'Description'];
-
-const SuccessDialog = () => (
+const SubmitDialog = (props) => (
   <Dialog open>
     <div className="add-beer-dialog">
-      <h1>Beer added, yay!</h1>
+      <h1>{ props.message }</h1>
       <Link to="/beers">
         <Button>See the beers</Button>
       </Link>
@@ -22,12 +18,11 @@ const SuccessDialog = () => (
   </Dialog>
 );
 
-// TODO: Array of fields and map them instead of so much repetition?
 // TODO: Validation?
 export default class AddBeerPage extends React.Component {
   constructor() {
     super();
-    this.state = { dialogOpen: false };
+    this.state = { dialogMessage: null };
   }
 
   handleChange = (event) => {
@@ -37,8 +32,9 @@ export default class AddBeerPage extends React.Component {
 
   handleSubmit = () => {
     const { name, brewery, description } = this.state;
+
     const requestOptions = {
-      url: `${apiUrl}/beers/new`,
+      url: `${apiUrl}/beers`,
       json: true,
       body: {
         name,
@@ -47,15 +43,21 @@ export default class AddBeerPage extends React.Component {
       }
     };
 
-    mockPost(requestOptions).then(() => {
-      this.setState({ dialogOpen: true });
-    });
+    request.post(requestOptions)
+      .then(() => {
+        this.setState({ dialogMessage: 'Beer added, yay!' });
+      })
+      .catch(err => {
+        console.error('Error submitting form', err.stack);
+        this.setState({ dialogMessage: 'Sorry about that, something went wrong. :(' });
+      });
   };
 
   render() {
+    const { dialogMessage } = this.state;
     return (
       <div className="add-beer">
-        { this.state.dialogOpen && <SuccessDialog /> }
+        { dialogMessage && <SubmitDialog message={dialogMessage} /> }
         <h1>Add a beer!</h1>
         <div className="add-beer-fields">
           { beerProperties.map(property => (
