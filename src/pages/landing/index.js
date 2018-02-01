@@ -8,7 +8,10 @@ export default class LandingPage extends React.Component {
       <div className="landing-page">
         <Paper className="landing-page-content">
           <h1>Hello!</h1>
-          <p>Well, welcome to Ratebeer! I warn you there's not much to see right now, though.</p>
+          <p>
+            Welcome to Ratebeer! There's not much to see right now. You can't actually even rate a beer yet.
+            Sorry about that. But maybe try adding some beers.
+          </p>
         </Paper>
       </div>
     );

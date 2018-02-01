@@ -3,7 +3,6 @@ import React from 'react';
 import Layout from './components/layout/index';
 import LandingPage from './pages/landing';
 import BeersPage from './pages/beers';
-import RatingsPage from './pages/ratings';
 import AddBeerPage from './pages/add-beer';
 import { RouteType } from './constants';
 import './common.scss';
@@ -25,12 +24,6 @@ const routes = [
     label: 'Add a beer!',
     path: '/beers/new',
     component: AddBeerPage,
-    type: RouteType.NAVIGATION_ROUTE
-  },
-  {
-    label: 'Ratings',
-    path: '/ratings',
-    component: RatingsPage,
     type: RouteType.NAVIGATION_ROUTE
   }
 ];
