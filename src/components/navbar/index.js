@@ -45,12 +45,11 @@ export default class Navbar extends React.Component {
   constructor() {
     super();
     this.state = { mobileNavOpen: false };
-    this.toggleMobileNav = this.toggleMobileNav.bind(this);
   }
 
-  toggleMobileNav() {
+  toggleMobileNav = () => {
     this.setState({ mobileNavOpen: !this.state.mobileNavOpen });
-  }
+  };
 
   render() {
     const { mainRoute, navigationRoutes } = this.props;
