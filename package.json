@@ -8,7 +8,8 @@
     "react-router-dom": "^4.2.2",
     "react-transition-group": "1.x",
     "request": "^2.83.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "validate.js": "^0.12.0"
   },
   "devDependencies": {
     "autoprefixer": "7.1.6",
@@ -51,7 +52,7 @@
     "webpack-manifest-plugin": "1.3.2"
   },
   "scripts": {
-    "start": "eslint src && node scripts/start.js",
+    "start": "node scripts/start.js",
     "build": "eslint src && node scripts/build.js",
     "test": "jest --verbose",
     "test-browser": "testcafe chrome tests/browser"
