@@ -28,6 +28,7 @@
     position: absolute;
     top: 65px;
     right: 2px;
+    z-index: 10; /* I really don't want to do this, but just making sure the nav popup stays on top */
   }
 }
 
