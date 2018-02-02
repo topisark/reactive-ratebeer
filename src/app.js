@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import Layout from './components/layout/index';
 import LandingPage from './pages/landing';
@@ -40,7 +40,7 @@ export default class App extends React.Component {
     const navigationRoutes = routes.filter(route => route.type === RouteType.NAVIGATION_ROUTE);
     return (
       <div className="application">
-        <BrowserRouter>
+        <HashRouter>
           <Layout mainRoute={mainRoute} navigationRoutes={navigationRoutes}>
             <Switch>
               {routes.map(route => (
@@ -54,7 +54,7 @@ export default class App extends React.Component {
               )}
             </Switch>
           </Layout>
-        </BrowserRouter>
+        </HashRouter>
       </div>
     );
   }
