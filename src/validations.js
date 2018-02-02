@@ -1,14 +1,14 @@
 import validate from 'validate.js';
 
-const notEmpty = {
+const atLeastThreeCharacters = {
   presence: true,
-  length: { minimum: 1 }
+  length: { minimum: 3 }
 };
 
 const beerConstraints = {
-  name: notEmpty,
-  brewery: notEmpty,
-  description: notEmpty
+  name: atLeastThreeCharacters,
+  brewery: atLeastThreeCharacters,
+  description: atLeastThreeCharacters
 };
 
 export function validateBeerField(field, value) {
