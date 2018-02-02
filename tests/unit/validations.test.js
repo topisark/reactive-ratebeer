@@ -55,14 +55,14 @@ describe('BeerIsValid', () => {
   describe('Invalid beer', () => {
     Object.keys(validBeer).forEach(key => {
       test(`is invalid without ${key}`, () => {
-        // Destructure so there are no side effects on original object
-        const beerClone = { ...validBeer };
-        delete beerClone[key];
-        expect(beerIsValid(beerClone)).toEqual(false);
+        // A bit annoying that destructuring doesn't work with a dynamic property without askey assignment
+        // since it's quite ugly!
+        const { [key]: askey, ...beerMissingAProperty } = validBeer;
+        expect(beerIsValid(beerMissingAProperty)).toEqual(false);
       });
       test(`is invalid with too short ${key}`, () => {
         const beerClone = { ...validBeer };
-        beerClone[key] = '';
+        beerClone[key] = 'xx';
         expect(beerIsValid(beerClone)).toEqual(false);
       });
     });
