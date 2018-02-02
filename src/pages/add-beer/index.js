@@ -3,7 +3,7 @@ import request from 'request-promise';
 import { Button, Dialog, TextField } from 'material-ui';
 import { Link } from 'react-router-dom';
 import page from '../../components/higherorder-page';
-import { apiUrl } from '../../constants';
+import { apiUrl, PageState } from '../../constants';
 import { beerIsValid, validateBeerField } from '../../validations';
 import './add-beer.scss';
 
@@ -33,7 +33,7 @@ class AddBeerPage extends React.Component {
   constructor() {
     super();
     this.state = {
-      dialogOpen: false,
+      pageState: PageState.READY,
       validationMessages: {},
       beerValid: false
     };
@@ -54,6 +54,8 @@ class AddBeerPage extends React.Component {
   };
 
   handleSubmit = () => {
+    this.setState({ pageState: PageState.LOADING });
+
     const requestOptions = {
       url: `${apiUrl}/beers`,
       json: true,
@@ -62,16 +64,16 @@ class AddBeerPage extends React.Component {
 
     request.post(requestOptions)
       .then(() => {
-        this.setState({ dialogOpen: true });
+        this.setState({ pageState: PageState.DIALOG_OPEN });
       })
       .catch(this.props.handleError);
   };
 
   render() {
-    const { dialogOpen, validationMessages, beerValid } = this.state;
+    const { pageState, validationMessages, beerValid } = this.state;
     return (
       <div className="add-beer">
-        { dialogOpen && <SuccessDialog /> }
+        { pageState === PageState.DIALOG_OPEN && <SuccessDialog /> }
         <h1>Add a beer!</h1>
         <div className="add-beer-fields">
           { beerProperties.map(property => (
@@ -90,7 +92,7 @@ class AddBeerPage extends React.Component {
         <Button
           raised
           onClick={this.handleSubmit}
-          disabled={!beerValid}
+          disabled={!beerValid || pageState === PageState.LOADING}
           color="primary"
         >
           Submit the beer!
