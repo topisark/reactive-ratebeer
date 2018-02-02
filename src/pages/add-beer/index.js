@@ -34,7 +34,7 @@ export default class AddBeerPage extends React.Component {
     this.state = {
       dialogMessage: null,
       validationMessages: {},
-      beerIsValid: false
+      beerValid: false
     };
   }
 
@@ -47,7 +47,7 @@ export default class AddBeerPage extends React.Component {
     const { name, value } = event.target;
     const beer = getBeerFromState(this.state);
     this.setState({
-      beerIsValid: beerIsValid(beer),
+      beerValid: beerIsValid(beer),
       validationMessages: { ...this.state.validationMessages, [name]: validateBeerField(name, value) }
     });
   };
@@ -70,7 +70,7 @@ export default class AddBeerPage extends React.Component {
   };
 
   render() {
-    const { dialogMessage, validationMessages, beerIsValid } = this.state;
+    const { dialogMessage, validationMessages, beerValid } = this.state;
     return (
       <div className="add-beer">
         { dialogMessage && <SubmitDialog message={dialogMessage} /> }
@@ -92,7 +92,7 @@ export default class AddBeerPage extends React.Component {
         <Button
           raised
           onClick={this.handleSubmit}
-          disabled={!beerIsValid}
+          disabled={!beerValid}
           color="primary"
         >
           Submit the beer!
