@@ -4,6 +4,7 @@ import Layout from './components/layout/index';
 import LandingPage from './pages/landing';
 import BeersPage from './pages/beers';
 import AddBeerPage from './pages/add-beer';
+import ErrorPage from './pages/error';
 import { RouteType } from './constants';
 import './common.scss';
 
@@ -25,6 +26,11 @@ const routes = [
     path: '/beers/new',
     component: AddBeerPage,
     type: RouteType.NAVIGATION_ROUTE
+  },
+  {
+    label: 'Error page',
+    path: '/error',
+    component: ErrorPage
   }
 ];
 

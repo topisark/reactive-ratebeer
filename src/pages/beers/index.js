@@ -3,6 +3,7 @@ import request from 'request-promise';
 import { Button, Card, CardActions, CardContent } from 'material-ui';
 import { Link } from 'react-router-dom';
 import { apiUrl } from '../../constants';
+import page from '../../components/higherorder-page';
 import SearchField from '../../components/search-field';
 import LoadingIndicator from '../../components/loading-indicator';
 import './beers.scss';
@@ -22,7 +23,7 @@ const BeerCard = (props) => (
   </Card>
 );
 
-export default class BeersPage extends React.Component {
+class BeersPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,7 +46,8 @@ export default class BeersPage extends React.Component {
           filteredBeers: beers,
           loading: false
         });
-      });
+      })
+      .catch(this.props.handleError);
   }
 
   setFilterResult = (filteredBeers) => {
@@ -71,3 +73,5 @@ export default class BeersPage extends React.Component {
     );
   }
 }
+
+export default page(BeersPage);

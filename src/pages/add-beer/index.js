@@ -2,6 +2,7 @@ import React from 'react';
 import request from 'request-promise';
 import { Button, Dialog, TextField } from 'material-ui';
 import { Link } from 'react-router-dom';
+import page from '../../components/higherorder-page';
 import { apiUrl } from '../../constants';
 import { beerIsValid, validateBeerField } from '../../validations';
 import './add-beer.scss';
@@ -17,10 +18,10 @@ const getBeerFromState = state => {
   };
 };
 
-const SubmitDialog = (props) => (
+const SuccessDialog = () => (
   <Dialog open>
     <div className="add-beer-dialog">
-      <h2>{ props.message }</h2>
+      <h2>Beer added, yay!</h2>
       <Link to="/beers">
         <Button>See the beers</Button>
       </Link>
@@ -28,11 +29,11 @@ const SubmitDialog = (props) => (
   </Dialog>
 );
 
-export default class AddBeerPage extends React.Component {
+class AddBeerPage extends React.Component {
   constructor() {
     super();
     this.state = {
-      dialogMessage: null,
+      dialogOpen: false,
       validationMessages: {},
       beerValid: false
     };
@@ -61,19 +62,16 @@ export default class AddBeerPage extends React.Component {
 
     request.post(requestOptions)
       .then(() => {
-        this.setState({ dialogMessage: 'Beer added, yay!' });
+        this.setState({ dialogOpen: true });
       })
-      .catch(err => {
-        console.error('Error submitting form', err.stack);
-        this.setState({ dialogMessage: 'Sorry about that, something went wrong. :(' });
-      });
+      .catch(this.props.handleError);
   };
 
   render() {
-    const { dialogMessage, validationMessages, beerValid } = this.state;
+    const { dialogOpen, validationMessages, beerValid } = this.state;
     return (
       <div className="add-beer">
-        { dialogMessage && <SubmitDialog message={dialogMessage} /> }
+        { dialogOpen && <SuccessDialog /> }
         <h1>Add a beer!</h1>
         <div className="add-beer-fields">
           { beerProperties.map(property => (
@@ -101,3 +99,5 @@ export default class AddBeerPage extends React.Component {
     );
   }
 }
+
+export default page(AddBeerPage);
