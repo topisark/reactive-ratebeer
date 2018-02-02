@@ -2,7 +2,7 @@ import validate from 'validate.js';
 
 const notEmpty = {
   presence: true,
-  length: { minimum: 2 }
+  length: { minimum: 1 }
 };
 
 const beerConstraints = {
@@ -18,7 +18,7 @@ export function validateBeerField(field, value) {
   return validationError && validationError[field].toString();
 }
 
-export function validateBeer(beer) {
+export function beerIsValid(beer) {
   const validationErrors = validate(beer, beerConstraints);
   return !validationErrors;
 }

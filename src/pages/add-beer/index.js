@@ -3,7 +3,7 @@ import request from 'request-promise';
 import { Button, Dialog, TextField } from 'material-ui';
 import { Link } from 'react-router-dom';
 import { apiUrl } from '../../constants';
-import { validateBeer, validateBeerField } from '../../validations';
+import { beerIsValid, validateBeerField } from '../../validations';
 import './add-beer.scss';
 
 const beerProperties = ['Name', 'Brewery', 'Description'];
@@ -47,7 +47,7 @@ export default class AddBeerPage extends React.Component {
     const { name, value } = event.target;
     const beer = getBeerFromState(this.state);
     this.setState({
-      beerIsValid: validateBeer(beer),
+      beerIsValid: beerIsValid(beer),
       validationMessages: { ...this.state.validationMessages, [name]: validateBeerField(name, value) }
     });
   };
