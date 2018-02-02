@@ -1,7 +1,6 @@
 import React from 'react';
 import request from 'request-promise';
-import { Button, Card, CardActions, CardContent } from 'material-ui';
-import { Link } from 'react-router-dom';
+import { Card, CardContent } from 'material-ui';
 import { apiUrl } from '../../constants';
 import page from '../../components/higherorder-page';
 import SearchField from '../../components/search-field';
@@ -15,11 +14,6 @@ const BeerCard = (props) => (
       <h3>{props.brewery}</h3>
       <p className="card-description">{props.description}</p>
     </CardContent>
-    <CardActions>
-      <Link to={`/beers/${props.id}`}>
-        <Button>Learn more</Button>
-      </Link>
-    </CardActions>
   </Card>
 );
 
